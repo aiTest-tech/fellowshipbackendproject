@@ -10,7 +10,7 @@ load_dotenv()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if bool(os.getenv("DEBUG_PROD")) == False else True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["10.10.2.179"]
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

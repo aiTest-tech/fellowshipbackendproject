@@ -1,14 +1,14 @@
 startdev:
-	python3 manage.py runserver 0.0.0.0:8000
+	python3 manage.py runserver 10.10.2.179:8000
 
 startdevguni:
-	DJANGO_ENV=dev gunicorn -w 5 -b 0.0.0.0:8082 fellowshipbackendproject.wsgi:application -t 600
+	DJANGO_ENV=dev gunicorn -w 5 -b 10.10.2.179:8082 fellowshipbackendproject.wsgi:application -t 600
 
 startstagguni:
 	DJANGO_ENV=staging gunicorn -w 5 -b 0.0.0.0:8083 fellowshipbackendproject.wsgi:application -t 600
 
 startprodguni:
-	DJANGO_ENV=production gunicorn -w 5 -b 0.0.0.0:8084 fellowshipbackendproject.wsgi:application -t 600
+	DJANGO_ENV=production gunicorn -w 5 -b 10.10.2.179:8084 fellowshipbackendproject.wsgi:application -t 600
 
 black:
 	python3 -m black .
