@@ -16,6 +16,7 @@ black:
 mig:
 	python3 manage.py makemigrations
 
+migandmigrate: mig migrate ;
 
 migstag:
 	DJANGO_ENV=staging python3 manage.py makemigrations
@@ -23,8 +24,6 @@ migstag:
 migratestag:
 	DJANGO_ENV=staging python3 manage.py migrate
 
-
-migandmigrate: mig migrate ;
 
 migandmigratestag: migstag  migratestag;
 

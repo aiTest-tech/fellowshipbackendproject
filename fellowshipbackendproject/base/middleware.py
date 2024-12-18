@@ -2,21 +2,25 @@ from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.deprecation import MiddlewareMixin
 
+
 class HideSensitiveHeadersMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
         # Remove the 'Host' header from the response (although it's sent by the client, not your server)
         response.headers.pop("Host", None)
         return response
-    
+
+
 class XXSSProtectionMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
-        response['X-XSS-Protection'] = '1; mode=block'
+        response["X-XSS-Protection"] = "1; mode=block"
         return response
+
 
 class SecurityHeadersMiddleware:
     """
     Middleware to add custom security headers.
     """
+
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -25,15 +29,19 @@ class SecurityHeadersMiddleware:
 
         # Add Permissions-Policy header
         response["Permissions-Policy"] = getattr(
-            settings, "SECURE_PERMISSION_POLICY", "geolocation=(), microphone=(), camera=()"
+            settings,
+            "SECURE_PERMISSION_POLICY",
+            "geolocation=(), microphone=(), camera=()",
         )
 
         return response
+
 
 class CacheControlMiddleware:
     """
     Middleware to enforce caching policies for responses.
     """
+
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -48,6 +56,7 @@ class CacheControlMiddleware:
 
         return response
 
+
 class RemoveHostnameMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -57,19 +66,23 @@ class RemoveHostnameMiddleware:
         response = self.get_response(request)
 
         # Remove the 'Host' header from the response if it exists
-        if 'Host' in response.headers:
-            del response.headers['Host']
+        if "Host" in response.headers:
+            del response.headers["Host"]
 
         # Optionally remove any other headers that might include the hostname
         # For example, remove Location header if it contains the hostname
-        if 'Location' in response.headers:
-            location = response.headers['Location']
-            if '://localhost' in location:
-                response.headers['Location'] = location.replace('localhost', 'your-new-hostname.com')
+        if "Location" in response.headers:
+            location = response.headers["Location"]
+            if "://localhost" in location:
+                response.headers["Location"] = location.replace(
+                    "localhost", "your-new-hostname.com"
+                )
 
         return response
 
+
 from django.utils.deprecation import MiddlewareMixin
+
 
 class SanitizeHeadersMiddleware(MiddlewareMixin):
     def process_request(self, request):
@@ -84,6 +97,7 @@ class SanitizeHeadersMiddleware(MiddlewareMixin):
         # Optionally sanitize response headers
         return response
 
+
 class HideHostHeaderMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -91,5 +105,5 @@ class HideHostHeaderMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         # Remove the 'Host' header from the response (if desired)
-        response.headers.pop('Host', None)
+        response.headers.pop("Host", None)
         return response

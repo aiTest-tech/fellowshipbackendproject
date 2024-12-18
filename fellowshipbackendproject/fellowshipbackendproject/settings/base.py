@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = "DENY"
 
 # SECURE_CONTENT_TYPE_NOSNIFF = True
 # SECURE_BROWSER_XSS_FILTER = True
@@ -27,9 +27,9 @@ X_FRAME_OPTIONS = 'DENY'
 # SESSION_COOKIE_SECURE = True
 # SESSION_COOKIE_HTTPONLY = True
 
-SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'
+# SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 
-SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+# SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
 
 # Application definition
 
@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["corsheaders",]
+THIRD_PARTY_APPS = [
+    "corsheaders",
+    "rest_framework"
+]
 
 LOCAL_APPS = ["base", "app"]
 
