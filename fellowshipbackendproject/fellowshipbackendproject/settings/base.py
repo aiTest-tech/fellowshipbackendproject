@@ -44,7 +44,9 @@ INSTALLED_APPS = [
 
 THIRD_PARTY_APPS = [
     "corsheaders",
-    "rest_framework"
+    "rest_framework",
+    "captcha",
+    "drf_yasg",
 ]
 
 LOCAL_APPS = ["base", "app"]
@@ -67,7 +69,7 @@ ROOT_URLCONF = "fellowshipbackendproject.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -137,3 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+SESSION_COOKIE_AGE = 20 * 60
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

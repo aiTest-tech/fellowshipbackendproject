@@ -4,26 +4,24 @@ import uuid
 
 
 # Create your models here.
-class MediaModel(BaseModel):  
+class MediaModel(BaseModel):
     id = models.UUIDField(
         default=uuid.uuid4, unique=True, primary_key=True, editable=False
     )
     title_eng = models.TextField()
-    img = models.ImageField(upload_to='media/')
+    img = models.ImageField(upload_to="media/")
     title_guj = models.TextField()
     active_deactivate = models.BooleanField(default=False)
 
-
     def __str__(self):
         return self.title_eng
-    
+
 
 class BatchModel(BaseModel):
     batch = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.batch}"
-    
 
 
 class MeetOurFellowsModel(BaseModel):
